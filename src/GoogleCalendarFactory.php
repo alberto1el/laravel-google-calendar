@@ -63,7 +63,7 @@ class GoogleCalendarFactory
         $client = new Google_Client([
             'client_email' => $config['client_email'],
             'signing_key' => $config['private_key'],
-            'signing_algorithm' => $config['HS256'],
+            'signing_algorithm' => 'HS256',
         ]);
         $client->useApplicationDefaultCredentials();
         $client->setClientId($config['client_id']);
