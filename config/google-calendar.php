@@ -17,6 +17,13 @@ return [
         ],
 
         /*
+         * Authenticate using a service account db based.
+         */
+        'user_service_account' => [
+            'credentials_json' => []
+        ],
+
+        /*
          * Authenticate with actual google user account.
          */
         'oauth' => [

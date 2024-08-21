@@ -26,6 +26,9 @@ class GoogleCalendarFactory
         if ($authProfile === 'service_account') {
             return self::createServiceAccountClient($config['auth_profiles']['service_account']);
         }
+        if ($authProfile === 'user_service_account') {
+            return self::createServiceAccountClientFromUser($config['auth_profiles']['user_service_account']);
+        }
         if ($authProfile === 'oauth') {
             return self::createOAuthClient($config['auth_profiles']['oauth']);
         }
@@ -46,6 +49,28 @@ class GoogleCalendarFactory
         if (config('google-calendar')['user_to_impersonate']) {
             $client->setSubject(config('google-calendar')['user_to_impersonate']);
         }
+
+        return $client;
+    }
+
+    protected static function createServiceAccountClientFromUser(array $authProfile): Google_Client
+    {
+
+        if (!$config = json_decode($authProfile['credentials_json'], true)) {
+            throw new \LogicException('invalid json for auth config');
+        }
+
+        $client = new Google_Client([
+            'client_email' => $config['client_email'],
+            'signing_key' => $config['private_key'],
+            'signing_algorithm' => $config['HS256'],
+        ]);
+        $client->useApplicationDefaultCredentials();
+        $client->setClientId($config['client_id']);
+
+        $client->setScopes([
+            Google_Service_Calendar::CALENDAR,
+        ]);
 
         return $client;
     }
