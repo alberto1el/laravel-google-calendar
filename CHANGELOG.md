@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-google-calendar` will be documented in this file
 
+## 3.9.0 - 2026-01-11
+
+### What's Changed
+
+* Laravel 12.x Compatibility
+* Minimum PHP version is now 8.2
+* Dropped support for Laravel 6, 7, 8, and 9
+
 ## 3.8.0 - 2024-03-14
 
 ### What's Changed
